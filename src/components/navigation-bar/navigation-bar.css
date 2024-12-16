@@ -1,0 +1,34 @@
+.navigation-bar {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  height: 45px;
+  justify-content: center;
+}
+
+.main-bar {
+  display: flex;
+  background-color: white;
+  width: 270px;
+  border-radius: 200px;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+}
+
+.side-bar {
+  display: flex;
+  background-color: white;
+  color: black;
+  width: 45px;
+  border-radius: 100%;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+}
+
+.main-bar-text {
+  font-weight: 600;
+  color: black;
+  text-transform: uppercase;
+}

@@ -1,0 +1,16 @@
+.nutrition-text-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.nutrient-name {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.nutrient-amount {
+  font-size: 12px;
+}

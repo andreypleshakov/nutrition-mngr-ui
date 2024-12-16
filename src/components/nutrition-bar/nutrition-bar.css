@@ -1,0 +1,34 @@
+.green-nutrition-bar {
+  width: 72px;
+  height: 102px;
+  border-radius: 8px;
+  background-color: #d4ead4;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.green-inner-nutrition-bar {
+  width: 100%;
+  background-color: #81b081;
+  box-shadow: 0 0 15px rgb(129, 176, 129);
+}
+
+.black-nutrition-bar {
+  width: 44px;
+  height: 69px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.151);
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+  overflow: hidden;
+  
+}
+
+.black-inner-nutrition-bar {
+  width: 100%;
+  background-color: #000000;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+}

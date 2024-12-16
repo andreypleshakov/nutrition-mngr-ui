@@ -1,0 +1,124 @@
+.consumed-product {
+  width: 100%;
+  background-color: white;
+  margin: 10px 0px;
+  display: flex;
+  flex-direction: column;
+  padding: 0px 24px;
+  gap: 10px;
+  border-bottom: 1px solid #f0f0f0;
+  transition: height 0.3s ease;
+}
+
+.cons-h-c {
+  height: 56px;
+}
+
+.cons-h-o {
+  height: 168px;
+}
+
+.food-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 30px;
+  background-color: #f0f0f0;
+}
+
+.nutritions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+  font-size: 12px;
+  margin-right: 34px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  padding: 4px;
+  box-sizing: border-box;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.arrow-collapsed {
+  transform: rotate(0deg);
+}
+
+.arrow-expanded {
+  transform: rotate(180deg);
+}
+
+.name-time-photo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.product-name {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 14px;
+
+  white-space: nowrap; /* Prevent the text from wrapping to a new line */
+  overflow: hidden; /* Hide the overflowing text */
+  text-overflow: ellipsis; /* Add ellipsis (...) to truncated text */
+  max-width: 200px; /* Set a maximum width for the element */
+  display: inline-block; /* Required for ellipsis to work */
+}
+
+.time-consumed {
+  font-size: 12px;
+  opacity: 50%;
+}
+
+.mass-kcal-icon {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.name-mass {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.pic-nutritions {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.name-time-icon {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.name-time {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.mass-kcal {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+  font-size: 12px;
+}
+
+.fade-in {
+  opacity: 1;
+}
+
+.fade-out {
+  opacity: 0;
+}

@@ -1,0 +1,20 @@
+.product-pic {
+  min-width: 57px;
+  min-height: 57px;
+  background-color: #e2e2e2;
+  opacity: 20%;
+  border-radius: 16px;
+  opacity: 20%;
+  border: #b6b6b6 solid;
+  border-width: 1px;
+  position: relative;
+}
+
+.product-icon {
+  position: absolute;
+  width: 23px;
+  height: 23px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -1,0 +1,77 @@
+.main-window {
+  width: 368px;
+  height: 398px;
+  padding: 16px;
+  background-color: white;
+  border-radius: 40px;
+  margin: 24px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+}
+
+.general-statistic {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  align-items: center;
+}
+
+.g-statistic-text {
+  display: flex;
+  flex-direction: column;
+  color: black;
+  gap: 10px;
+  align-items: center;
+}
+
+.kcal-numbers {
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.calories-bar {
+  width: 72px;
+  height: 102px;
+  border-radius: 8px;
+  background-color: #d4ead4;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+}
+
+.sub-calories-bar {
+  width: 100%;
+  border-radius: 0 0 8px 8px;
+  background-color: #81b081;
+  box-shadow: 0 0 15px rgb(129, 176, 129);
+}
+
+.line {
+  border: none;
+  height: 1px;
+  background-color: #F0F0F0;
+  width: 100%;
+}
+
+.nutrition-bars {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.new-entry {
+  height: 36px;
+  color: white;
+  background-color: black;
+  border-radius: 200px;
+  padding: 4px 40.5px ;
+  text-transform: uppercase;
+  font-weight: 600;
+  display: flex;
+  gap: 10px;
+  font-size: 14px;
+  align-items: center;
+}

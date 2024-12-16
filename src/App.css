@@ -1,10 +1,10 @@
 * {
   margin: 0;
-  padding: 0px 1px;
   box-sizing: border-box;
 }
 
 body {
-  background-color: var(--tg-theme-bg-color);
-  color: var(--tg-theme-text-color);
+  background-color: #f9f9f9;
+  color: black;
+  font-family: "Oxygen", sans-serif;
 }

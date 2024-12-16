@@ -1,0 +1,137 @@
+.main {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: calc(100% - 48px);
+  height: calc(100% - 48px);
+  background-color: white;
+  border-radius: 50px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+  transform: translate(-50%, -50%);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.new-switch-search {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: sticky;
+}
+
+.new-entry-x {
+  text-transform: uppercase;
+  display: flex;
+  font-weight: 600;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.x {
+  width: 12px;
+  height: 12px;
+  cursor: pointer;
+}
+
+.add-create {
+  position: relative;
+  min-width: 332px;
+  min-height: 40px;
+  display: flex;
+  background-color: #f3f3f3;
+  border-radius: 30px;
+  font-weight: 600;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.add-create-switcher {
+  position: absolute;
+  height: 100%;
+  width: 50%;
+  background-color: #81b081;
+  border-radius: 30px;
+
+  transform: translateX(0%);
+  transition: transform 0.2s ease-in-out;
+}
+
+.create-text-switcher {
+  position: absolute;
+  top: 50%;
+  left: 75%;
+  transform: translate(-50%, -50%);
+  transition: color 0.2s ease-in;
+}
+
+.add-text-switcher {
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  transition: color 0.2s ease-in;
+}
+
+.switch-on {
+  color: white;
+}
+
+.switch-off {
+  color: #81b081;
+}
+
+.meal-search {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.form-meal {
+  width: 100%;
+  border: 1px solid #f0f0f0;
+  border-radius: 100px;
+  padding: 12px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-search {
+  width: 100%;
+  border: 1px solid #f0f0f0;
+  border-radius: 100px;
+  padding: 12px 12px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.animated-div {
+  width: 200px;
+  height: 100px;
+  background-color: lightblue;
+  margin-top: 20px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fade-in {
+  opacity: 1;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.product-list-2 {
+  flex-grow: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  scrollbar-width: none;
+}
