@@ -5,11 +5,14 @@ import { useState } from "react";
 import { Products } from "../../api/getProducts";
 import { Product } from "../product/product";
 import { Input } from "../input/input";
+import { DropdownButton } from "../dropdown-button/dropdown-button";
+import { CreateEntry } from "../create-entry/create-entry";
+import { InputWithName } from "../input-with-name/input-with-name";
 
 type AddConsumptionProps = {
   onClick: () => void;
   productsList: Products[];
-}
+};
 
 export const AddConsumption = (props: AddConsumptionProps) => {
   const [button, setButton] = useState(true);
@@ -21,7 +24,6 @@ export const AddConsumption = (props: AddConsumptionProps) => {
   return (
     <div className="main">
       <div className="new-switch-search">
-        {" "}
         <div className="new-entry-x">
           <span>New entry</span>
           <img
@@ -57,22 +59,32 @@ export const AddConsumption = (props: AddConsumptionProps) => {
             Create
           </span>
         </div>
-        <div className="meal-search">
-          {/* <div className="form-meal">
-          <span>Meal</span>
-          <img className="x" src={arrowDown} alt="arrow-down" />
-        </div> */}
 
-          <Input imageSrc={searchIcon} placeholder="Search" type="string" />
+        {button ? (
+          <div className="meal-search">
+            <DropdownButton />
+            <Input
+              imageSrc={searchIcon}
+              placeholder="Search"
+              type="string"
+              label="g"
+            />
+          </div>
+        ) : (
+          <InputWithName name="Name" placeholder="Enter name" />
+        )}
+      </div>
+
+      {button ? (
+        <div className="product-list-2">
+          {props.productsList &&
+            props.productsList.map((product, index) => (
+              <Product key={index} {...product} />
+            ))}
         </div>
-      </div>
-
-      <div className="product-list-2">
-        {props.productsList &&
-          props.productsList.map((product, index) => (
-            <Product key={index} {...product} />
-          ))}
-      </div>
+      ) : (
+        <CreateEntry />
+      )}
     </div>
   );
 };

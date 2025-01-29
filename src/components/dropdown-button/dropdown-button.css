@@ -1,0 +1,78 @@
+.dropdown {
+  width: 40%;
+  position: relative;
+  height: 100px;
+}
+
+.meal {
+  position: absolute;
+  height: 36px;
+  border: 1px solid #f0f0f0;
+  border-radius: 100px;
+  padding: 12px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+  gap: 15px;
+  left: 5px;
+  min-width: 108px;
+}
+
+.meal-on {
+  background-color: #f0f0f0;
+}
+
+.meal-off {
+  background-color: #f0f0f000;
+}
+
+.dropdown-menu {
+  position: absolute;
+  left: 0;
+  background-color: white;
+  height: 100px;
+  width: 117px;
+  bottom: 5px;
+  border-radius: 25px;
+
+  display: flex;
+  flex-direction: column;
+  padding-top: 48px;
+  padding-left: 18px;
+  font-size: 14px;
+  gap: 5px;
+
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.drop-opacity-off {
+  opacity: 0;
+}
+
+.drop-opacity-on {
+  opacity: 1;
+}
+
+.products-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.meal-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.check-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.text-green {
+  color: #81b081;
+}

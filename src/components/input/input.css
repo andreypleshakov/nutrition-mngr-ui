@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #f0f0f0;
   border-radius: 100px;
   padding: 16px;
 }

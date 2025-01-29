@@ -1,9 +1,9 @@
 import { Products } from "../../api/getProducts";
 import { BasicNutrients } from "../../api/getStatAndGoal";
+import { convertKeyToName } from "../../utils";
 import { AddConsumption } from "../add-consumption/add-consumption";
 import { Button } from "../button/button";
 import { NutritionBar } from "../nutrition-bar/nutrition-bar";
-import { convertKeyToName } from "../product/product";
 import { SubNutrient } from "../sub-nutrient/sub-nutrient";
 import "./total-statistic.css";
 import { createPortal } from "react-dom";
@@ -13,16 +13,41 @@ type TotalStatisticProps = {
   goal: BasicNutrients;
   barPercentage: BasicNutrients;
   productsList: Products[];
-
   onClick: () => void;
   modalStatus: boolean;
 };
 
 export const TotalStatistic = (props: TotalStatisticProps) => {
+  const getNutritionBars = () => {
+    return Object.entries(props.goal)
+      .filter(
+        ([key, value]) =>
+          key !== "kcal" &&
+          key !== "saturatedFat" &&
+          key !== "unsaturatedFat" &&
+          value > 0
+      )
+      .map(([key, value]) => (
+        <SubNutrient
+          key={key}
+          name={convertKeyToName(key)}
+          nutrientGoal={value.toFixed()}
+          nutrientStat={props.dailyStat[key as keyof BasicNutrients].toFixed()}
+          barHeight={props.barPercentage[key as keyof BasicNutrients].toFixed()}
+        />
+      ));
+  };
+
   return (
     <div className="main-window">
       {props.modalStatus &&
-        createPortal(<AddConsumption productsList={props.productsList} onClick={props.onClick} />, document.body)}
+        createPortal(
+          <AddConsumption
+            productsList={props.productsList}
+            onClick={props.onClick}
+          />,
+          document.body
+        )}
 
       <div className="general-statistic">
         <span className="g-statistic-text">
@@ -45,29 +70,7 @@ export const TotalStatistic = (props: TotalStatisticProps) => {
 
       <div className="line" />
 
-      <div className="nutrition-bars">
-        {Object.entries(props.goal)
-          .filter(
-            ([key, value]) =>
-              key !== "kcal" &&
-              key !== "saturatedFat" &&
-              key !== "unsaturatedFat" &&
-              value > 0
-          )
-          .map(([key, value]) => (
-            <SubNutrient
-              key={key}
-              name={convertKeyToName(key)}
-              nutrientGoal={value.toFixed()}
-              nutrientStat={props.dailyStat[
-                key as keyof BasicNutrients
-              ].toFixed()}
-              barHeight={props.barPercentage[
-                key as keyof BasicNutrients
-              ].toFixed()}
-            />
-          ))}
-      </div>
+      <div className="nutrition-bars">{getNutritionBars()}</div>
 
       <Button onClick={props.onClick}>+ New Entry</Button>
     </div>

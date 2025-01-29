@@ -29,9 +29,22 @@ export type DailyFood = BasicNutrients & {
   tgId: number;
 };
 
-export const getStatAndGoal = async (tgId: number): Promise<StatAndGoalResponse> => {
+export const getStatAndGoal = async (
+  tgId: number
+): Promise<StatAndGoalResponse> => {
+  const startDate = new Date();
+  startDate.setUTCHours(0, 0, 0, 0);
+
+  const endDate = new Date(startDate);
+  endDate.setDate(startDate.getDate() + 1);
+
+  const queryParams = new URLSearchParams({
+    startDate: startDate.toISOString(),
+    endDate: endDate.toISOString(),
+  });
+
   const [responseStat, responseGoal] = await Promise.all([
-    fetch(`http://localhost:3001/statistic/${tgId}`),
+    fetch(`http://localhost:3001/statistic/${tgId}?${queryParams}`),
     fetch(`http://localhost:3001/goal/${tgId}`),
   ]);
 
@@ -42,9 +55,9 @@ export const getStatAndGoal = async (tgId: number): Promise<StatAndGoalResponse>
   }
 
   const resultStat: FetchedStat = await responseStat.json();
-  const rawDataGoal = await responseGoal.json();
 
-  console.log("resultStat", resultStat);
+  console.log(resultStat)
+  const rawDataGoal = await responseGoal.json();
 
   const resultGoal: BasicNutrients = {
     kcal: rawDataGoal.kcal,

@@ -88,6 +88,7 @@
   display: flex;
   flex-direction: row;
   gap: 10px;
+  height: 36px;
 }
 
 .form-meal {
@@ -135,3 +136,4 @@
   gap: 12px;
   scrollbar-width: none;
 }
+

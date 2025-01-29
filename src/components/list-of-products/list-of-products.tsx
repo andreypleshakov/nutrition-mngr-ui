@@ -1,5 +1,5 @@
 import { Products } from "../../api/getProducts";
-import { Product } from "../product/product";
+// import { Product } from "../product/product";
 import "./list-of-products";
 
 type ListOfProductsProps = {

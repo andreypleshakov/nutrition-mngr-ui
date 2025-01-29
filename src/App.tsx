@@ -10,6 +10,7 @@ import {
 } from "./api/getStatAndGoal";
 import { getProducts, Products } from "./api/getProducts";
 import { ConsumedProduct } from "./components/consumed-product/consumed-product";
+import { tgIdContext } from "./context";
 
 export function convertDateToTime(date: string): string {
   const convertedDate = new Date(date).toLocaleTimeString("en-US", {
@@ -46,8 +47,6 @@ export const App = () => {
       setGoal(goal);
       setBarHeight(barPercentage);
       setProductsList(listOfProducts);
-
-      console.log("STAT", statistic.arrayOfProducts);
     };
 
     fetchData();
@@ -69,7 +68,6 @@ export const App = () => {
         throw new Error(`Error: ${response.statusText}`);
       }
       const result = await response.json();
-      console.log("Deleted successfully:", result);
       return result;
     } catch (error) {
       console.error("Error deleting daily statistic:", error);
@@ -108,16 +106,20 @@ export const App = () => {
     <div className="App">
       {/* <NameBar /> */}
       <NavigationBar date={formattedDate} />
-      {dailyStat && goal && barHeight && (
-        <TotalStatistic
-          dailyStat={dailyStat}
-          goal={goal}
-          barPercentage={barHeight}
-          onClick={handlerOpenModal}
-          modalStatus={openModal}
-          productsList={productsList!}
-        />
-      )}
+
+      <tgIdContext.Provider value={tgId}>
+        {dailyStat && goal && barHeight && (
+          <TotalStatistic
+            dailyStat={dailyStat}
+            goal={goal}
+            barPercentage={barHeight}
+            onClick={handlerOpenModal}
+            modalStatus={openModal}
+            productsList={productsList!}
+          />
+        )}
+      </tgIdContext.Provider>
+
       {consumedList &&
         consumedList.map((product, index) => (
           <ConsumedProduct

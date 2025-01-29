@@ -5,7 +5,8 @@ type InputProps = {
   imageSrc?: string;
   placeholder: string;
   type: string;
-}
+  label?: string;
+};
 
 export const Input = (props: InputProps) => {
   return (
@@ -21,7 +22,7 @@ export const Input = (props: InputProps) => {
         onChange={props.onChange}
       />
 
-      {!props.imageSrc && <span className="input-label">g</span>}
+      <span className="input-label">{props.label}</span>
     </div>
   );
 };

@@ -1,0 +1,27 @@
+.create-new-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+}
+
+.select {
+  width: 100%;
+}
+
+.select-type {
+  display: flex;
+  gap: 50px;
+  font-size: 14px;
+}
+
+.select-type-wrapper {
+  position: absolute;
+}
+
+.test {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

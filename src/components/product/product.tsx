@@ -4,12 +4,14 @@ import "./product.css";
 import { Input } from "../input/input";
 import { Button } from "../button/button";
 import { ProductPic } from "../product-pic/product-pic";
+import { BasicNutrients, DailyFood } from "../../api/getStatAndGoal";
+import { useTgIdContext } from "../../context";
+import { calculateNutrient, convertKeyToName } from "../../utils";
 
 export const Product = (props: Products) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [style, setStyle] = useState("");
   const [valueInput, setValueInput] = useState("0");
-
   const [nutrients, setNutrients] = useState<
     {
       key: string;
@@ -17,6 +19,8 @@ export const Product = (props: Products) => {
       unit: string;
     }[]
   >();
+
+  const tgId = useTgIdContext();
 
   const handleClick = () => {
     if (isExpanded) {
@@ -48,12 +52,55 @@ export const Product = (props: Products) => {
     setNutrients(values);
   }, [valueInput, props]);
 
-  const handleSave = () => {
-    nutrients?.forEach((nutrient) => console.log(parseFloat(nutrient.value)));
+  const handleSave = async () => {
+    const date = new Date();
+
+    const convertedNutrients = nutrients?.reduce((acc, item) => {
+      acc[item.key as keyof BasicNutrients] = parseFloat(item.value);
+      return acc;
+    }, {} as BasicNutrients);
+
+    if (convertedNutrients) {
+      const payload: DailyFood = {
+        name: props.name,
+        dateOfConsumption: date.toISOString(),
+        mass: Number(valueInput),
+        ...convertedNutrients,
+        tgId: tgId,
+      };
+
+      console.log(payload);
+
+      try {
+        const response = await fetch(
+          `http://localhost:3001/statistic/${tgId}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          }
+        );
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Server Error: ${response.status} - ${errorText}`);
+        }
+
+        const result = await response.json();
+        console.log(result);
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error("Error message:", error.message);
+        } else {
+          console.error("An unexpected error occurred:", error);
+        }
+      }
+    }
     setStyle("fade-out");
     setTimeout(() => {
       setIsExpanded(false);
       setStyle("");
+      setValueInput("0");
     }, 200);
   };
 
@@ -95,19 +142,3 @@ export const Product = (props: Products) => {
     </div>
   );
 };
-
-export function convertKeyToName(key: string): string {
-  return key
-    .replace(/([A-Z])/g, " $1")
-    .replace(/^./, (str) => str.toUpperCase());
-}
-
-function calculateNutrient(valueInput: string, valueNutrient: number): string {
-  let covertedNumber = "";
-  const inputNumber = Number(valueInput);
-  const valueCalculated = inputNumber * valueNutrient;
-  inputNumber === 0 || valueCalculated < 0.01
-    ? (covertedNumber = valueCalculated.toFixed())
-    : (covertedNumber = valueCalculated.toFixed(2));
-  return covertedNumber;
-}
