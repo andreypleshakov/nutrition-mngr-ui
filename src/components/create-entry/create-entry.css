@@ -5,13 +5,9 @@
   position: relative;
 }
 
-.select {
-  width: 100%;
-}
-
 .select-type {
   display: flex;
-  gap: 50px;
+  justify-content: space-around;
   font-size: 14px;
 }
 

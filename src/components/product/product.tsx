@@ -5,8 +5,9 @@ import { Input } from "../input/input";
 import { Button } from "../button/button";
 import { ProductPic } from "../product-pic/product-pic";
 import { BasicNutrients, DailyFood } from "../../api/getStatAndGoal";
-import { useTgIdContext } from "../../context";
+import { useTgIdContext } from "../../context/tg-context";
 import { calculateNutrient, convertKeyToName } from "../../utils";
+import { useRefetch } from "../../context/refetch-context";
 
 export const Product = (props: Products) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -88,6 +89,7 @@ export const Product = (props: Products) => {
 
         const result = await response.json();
         console.log(result);
+        triggerRefetch();
       } catch (error) {
         if (error instanceof Error) {
           console.error("Error message:", error.message);
@@ -103,6 +105,8 @@ export const Product = (props: Products) => {
       setValueInput("0");
     }, 200);
   };
+
+  const triggerRefetch = useRefetch();
 
   return (
     <div className={`product-wrapper ${isExpanded ? "expanded" : ""}`}>
@@ -135,7 +139,8 @@ export const Product = (props: Products) => {
                 </span>
               ))}
             </span>
-            <Button onClick={handleSave}>save</Button>
+            {/* need to disable button if nothing in value input*/}
+            {valueInput !== "0" && <Button onClick={handleSave}>save</Button>}
           </div>
         </div>
       )}

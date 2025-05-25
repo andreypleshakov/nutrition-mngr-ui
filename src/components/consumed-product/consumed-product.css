@@ -1,7 +1,7 @@
 .consumed-product {
-  width: 100%;
+  width: 368px;
   background-color: white;
-  margin: 10px 0px;
+  margin: 10px auto;
   display: flex;
   flex-direction: column;
   padding: 0px 24px;

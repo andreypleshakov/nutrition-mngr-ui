@@ -1,13 +1,14 @@
 import "./add-consumption.css";
 import crossIcon from "../../assets/icons/cross-icon.svg";
 import searchIcon from "../../assets/icons/search-icon.svg";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Products } from "../../api/getProducts";
 import { Product } from "../product/product";
 import { Input } from "../input/input";
 import { DropdownButton } from "../dropdown-button/dropdown-button";
 import { CreateEntry } from "../create-entry/create-entry";
 import { InputWithName } from "../input-with-name/input-with-name";
+import { useVirtualizer } from "@tanstack/react-virtual";
 
 type AddConsumptionProps = {
   onClick: () => void;
@@ -17,8 +18,42 @@ type AddConsumptionProps = {
 export const AddConsumption = (props: AddConsumptionProps) => {
   const [button, setButton] = useState(true);
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const virtualizer = useVirtualizer({
+    count: props.productsList.length,
+    estimateSize: () => 80,
+    getScrollElement: () => scrollRef.current,
+  });
+
+  const virtualItems = virtualizer.getVirtualItems();
+
   const handlerSwitch = () => {
     setButton((b) => !b);
+  };
+
+  const handleTest = () => {
+    // props.productsList.sort((a, b) => b.fiber - a.fiber)
+    const topFiber = props.productsList.filter(
+      (product) => product.fiber > 0.01
+    );
+    // topFiber.sort((a, b) => b.fiber - a.fiber);
+    const sortedKcalFiber = [...topFiber].sort(
+      (a, b) => b.kcal / b.fiber - a.kcal / a.fiber
+    );
+    console.log(sortedKcalFiber);
+  };
+
+  const handleTest2 = () => {
+    // props.productsList.sort((a, b) => b.fiber - a.fiber)
+    const topFiber = props.productsList.filter(
+      (product) => product.protein > 0.2
+    );
+    // topFiber.sort((a, b) => b.fiber - a.fiber);
+    const sortedKcalFiber = [...topFiber].sort(
+      (a, b) => b.kcal / b.protein - a.kcal / a.protein
+    );
+    console.log(sortedKcalFiber);
   };
 
   return (
@@ -60,9 +95,10 @@ export const AddConsumption = (props: AddConsumptionProps) => {
           </span>
         </div>
 
-        {button ? (
+        {/* {button ? (
           <div className="meal-search">
             <DropdownButton />
+            <div onClick={handleTest2}>TEST</div>
             <Input
               imageSrc={searchIcon}
               placeholder="Search"
@@ -72,15 +108,37 @@ export const AddConsumption = (props: AddConsumptionProps) => {
           </div>
         ) : (
           <InputWithName name="Name" placeholder="Enter name" />
-        )}
+        )} */}
       </div>
 
       {button ? (
-        <div className="product-list-2">
-          {props.productsList &&
-            props.productsList.map((product, index) => (
-              <Product key={index} {...product} />
-            ))}
+        <div className="product-list-2" ref={scrollRef}>
+          <div
+            className="product-list-relative"
+            style={{ height: `${virtualizer.getTotalSize()}px` }}
+          >
+            <div
+              className="product-list-absolute"
+              style={{
+                transform: `translateY(${virtualItems[0]?.start ?? 0}px)`,
+              }}
+            >
+              {virtualItems &&
+                virtualItems.map((vItem) => {
+                  const product = props.productsList[vItem.index];
+                  return (
+                    <div
+                      className="product-list-additional"
+                      key={vItem.key}
+                      data-index={vItem.index}
+                      ref={virtualizer.measureElement}
+                    >
+                      <Product {...product} />
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
         </div>
       ) : (
         <CreateEntry />

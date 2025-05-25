@@ -10,7 +10,8 @@ import {
 } from "./api/getStatAndGoal";
 import { getProducts, Products } from "./api/getProducts";
 import { ConsumedProduct } from "./components/consumed-product/consumed-product";
-import { tgIdContext } from "./context";
+import { tgIdContext } from "./context/tg-context";
+import { RefetchContext } from "./context/refetch-context";
 
 export function convertDateToTime(date: string): string {
   const convertedDate = new Date(date).toLocaleTimeString("en-US", {
@@ -35,9 +36,11 @@ export const App = () => {
 
   const [openModal, setOpenModal] = useState(false);
 
+  const [refetchTrigger, setRefetchTrigger] = useState(0);
+  const triggerRefetch = () => setRefetchTrigger((prev) => prev + 1);
+
   useEffect(() => {
     tg.ready();
-
     const fetchData = async () => {
       const { statistic, goal, barPercentage } = await getStatAndGoal(tgId);
       const listOfProducts = await getProducts(tgId);
@@ -48,9 +51,8 @@ export const App = () => {
       setBarHeight(barPercentage);
       setProductsList(listOfProducts);
     };
-
     fetchData();
-  }, [tg]);
+  }, [tg, refetchTrigger, consumedList]);
 
   async function deleteDailyStatProduct(tgId: number, id: string) {
     const options = {
@@ -103,31 +105,35 @@ export const App = () => {
     : "No date available";
 
   return (
-    <div className="App">
-      {/* <NameBar /> */}
-      <NavigationBar date={formattedDate} />
+    <RefetchContext.Provider value={triggerRefetch}>
+      <div className="App">
+        {/* <NameBar /> */}
+        <NavigationBar date={formattedDate} />
 
-      <tgIdContext.Provider value={tgId}>
-        {dailyStat && goal && barHeight && (
-          <TotalStatistic
-            dailyStat={dailyStat}
-            goal={goal}
-            barPercentage={barHeight}
-            onClick={handlerOpenModal}
-            modalStatus={openModal}
-            productsList={productsList!}
-          />
-        )}
-      </tgIdContext.Provider>
+        <tgIdContext.Provider value={tgId}>
+          {dailyStat && goal && barHeight && (
+            <TotalStatistic
+              dailyStat={dailyStat}
+              goal={goal}
+              barPercentage={barHeight}
+              onClick={handlerOpenModal}
+              modalStatus={openModal}
+              productsList={productsList!}
+            />
+          )}
+        </tgIdContext.Provider>
 
-      {consumedList &&
-        consumedList.map((product, index) => (
-          <ConsumedProduct
-            key={index}
-            {...product}
-            deletionStatus={() => handleRemoveFromConsumedList(index)}
-          />
-        ))}
-    </div>
+        <div className="test-cons-prod">
+          {consumedList &&
+            consumedList.map((product, index) => (
+              <ConsumedProduct
+                key={index}
+                {...product}
+                deletionStatus={() => handleRemoveFromConsumedList(index)}
+              />
+            ))}
+        </div>
+      </div>
+    </RefetchContext.Provider>
   );
 };
