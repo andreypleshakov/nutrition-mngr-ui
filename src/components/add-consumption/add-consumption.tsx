@@ -41,7 +41,6 @@ export const AddConsumption = (props: AddConsumptionProps) => {
     const sortedKcalFiber = [...topFiber].sort(
       (a, b) => b.kcal / b.fiber - a.kcal / a.fiber
     );
-    console.log(sortedKcalFiber);
   };
 
   const handleTest2 = () => {
@@ -53,7 +52,6 @@ export const AddConsumption = (props: AddConsumptionProps) => {
     const sortedKcalFiber = [...topFiber].sort(
       (a, b) => b.kcal / b.protein - a.kcal / a.protein
     );
-    console.log(sortedKcalFiber);
   };
 
   return (

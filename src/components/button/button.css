@@ -2,7 +2,7 @@
   height: 36px;
   padding: 4px 30px;
   border-radius: 200px;
-  background-color: black;
+  background-color: rgba(0,0,0,1);
   color: white;
   text-transform: uppercase;
   font-weight: 600;
@@ -10,4 +10,9 @@
   border: none;
   outline: none;
   cursor: pointer;
+}
+
+.button:disabled {
+  background-color: rgba(0,0,0,.1);
+  cursor: default
 }

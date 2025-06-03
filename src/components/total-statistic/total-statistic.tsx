@@ -42,10 +42,14 @@ export const TotalStatistic = (props: TotalStatisticProps) => {
     <div className="main-window">
       {props.modalStatus &&
         createPortal(
-          <AddConsumption
-            productsList={props.productsList}
-            onClick={props.onClick}
-          />,
+          <>
+            <AddConsumption
+              productsList={props.productsList}
+              onClick={props.onClick}
+            />
+
+            <div className="modal-backdrop" />
+          </>,
           document.body
         )}
 

@@ -4,15 +4,9 @@
 }
 
 body {
-  /* width: clamp(420px, 80vw, 720px);
-  margin: 0 auto; */
   background-color: #f9f9f9;
   color: black;
   font-family: "Oxygen", sans-serif;
-  max-width: 500px;
+  max-width: 534px;
   margin-inline: auto;
-}
-
-.test-cons-prod{
-  background-color: white;
 }

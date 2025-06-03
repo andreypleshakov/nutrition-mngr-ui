@@ -1,15 +1,15 @@
 .navigation-bar {
   margin-top: 20px;
+  margin-inline: 30px;
   display: flex;
-  gap: 10px;
   height: 45px;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .main-bar {
   display: flex;
   background-color: white;
-  width: 270px;
+  width: 75%;
   border-radius: 200px;
   align-items: center;
   justify-content: center;

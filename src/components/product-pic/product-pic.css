@@ -1,12 +1,21 @@
 .product-pic {
-  min-width: 57px;
-  min-height: 57px;
+  width: 94px;
   background-color: #e2e2e2;
   opacity: 20%;
   border-radius: 16px;
   border: #b6b6b6 solid;
   border-width: 1px;
   position: relative;
+}
+
+.pic-size-consumed {
+  width: 18vw;
+  height: 18vw;
+}
+
+.pic-size-db {
+  width: 10vw;
+  height: 10vw;
 }
 
 .product-icon {

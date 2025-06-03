@@ -13,6 +13,7 @@
   flex-direction: column;
   gap: 12px;
   overflow: hidden;
+  z-index: 1;
 }
 
 .new-switch-search {

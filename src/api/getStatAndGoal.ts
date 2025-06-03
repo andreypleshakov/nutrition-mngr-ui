@@ -1,4 +1,4 @@
-import { convertDateToTime } from "../App";
+import { convertDateToTime } from "../utils";
 
 export type BasicNutrients = {
   kcal: number;
@@ -56,7 +56,6 @@ export const getStatAndGoal = async (
 
   const resultStat: FetchedStat = await responseStat.json();
 
-  console.log(resultStat)
   const rawDataGoal = await responseGoal.json();
 
   const resultGoal: BasicNutrients = {

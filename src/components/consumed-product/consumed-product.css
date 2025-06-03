@@ -1,28 +1,9 @@
-.consumed-product {
-  width: 368px;
-  background-color: white;
-  margin: 10px auto;
+.consumed-product {  
+  background-color: white;  
   display: flex;
   flex-direction: column;
-  padding: 0px 24px;
-  gap: 10px;
-  border-bottom: 1px solid #f0f0f0;
-  transition: height 0.3s ease;
-}
-
-.cons-h-c {
-  height: 56px;
-}
-
-.cons-h-o {
-  height: 168px;
-}
-
-.food-pic {
-  width: 100px;
-  height: 100px;
-  border-radius: 30px;
-  background-color: #f0f0f0;
+  padding-block: 5px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .nutritions {
@@ -31,12 +12,11 @@
   gap: 10px;
   align-items: flex-end;
   font-size: 12px;
-  margin-right: 34px;
 }
 
 .icon {
-  width: 24px;
-  height: 24px;
+  width: 30px;
+  height: 30px;
   padding: 4px;
   box-sizing: border-box;
   display: inline-block;
@@ -51,12 +31,6 @@
   transform: rotate(180deg);
 }
 
-.name-time-photo {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
 .product-name {
   text-transform: uppercase;
   font-weight: 600;
@@ -65,7 +39,7 @@
   white-space: nowrap; /* Prevent the text from wrapping to a new line */
   overflow: hidden; /* Hide the overflowing text */
   text-overflow: ellipsis; /* Add ellipsis (...) to truncated text */
-  max-width: 200px; /* Set a maximum width for the element */
+  max-width: 40vw; /* Set a maximum width for the element */
   display: inline-block; /* Required for ellipsis to work */
 }
 
@@ -82,16 +56,8 @@
 
 .name-mass {
   display: flex;
-  gap: 10px;
   justify-content: space-between;
-}
-
-.pic-nutritions {
-  display: flex;
-  gap: 10px;
-  justify-content: space-between;
-  opacity: 0;
-  transition: opacity 0.2s ease-in-out;
+  padding-inline: 20px;
 }
 
 .name-time-icon {
@@ -115,10 +81,9 @@
   font-size: 12px;
 }
 
-.fade-in {
-  opacity: 1;
-}
-
-.fade-out {
-  opacity: 0;
+.consumed-product-stat {
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 54px;
 }
