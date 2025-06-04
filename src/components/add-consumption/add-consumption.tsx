@@ -1,14 +1,11 @@
-import "./add-consumption.css";
+import styles from "./add-consumption.module.css";
 import crossIcon from "../../assets/icons/cross-icon.svg";
-import searchIcon from "../../assets/icons/search-icon.svg";
 import { useRef, useState } from "react";
 import { Products } from "../../api/getProducts";
 import { Product } from "../product/product";
-import { Input } from "../input/input";
-import { DropdownButton } from "../dropdown-button/dropdown-button";
 import { CreateEntry } from "../create-entry/create-entry";
-import { InputWithName } from "../input-with-name/input-with-name";
 import { useVirtualizer } from "@tanstack/react-virtual";
+import { motion } from "motion/react";
 
 type AddConsumptionProps = {
   onClick: () => void;
@@ -16,7 +13,7 @@ type AddConsumptionProps = {
 };
 
 export const AddConsumption = (props: AddConsumptionProps) => {
-  const [button, setButton] = useState(true);
+  const [isAdd, setIsAdd] = useState(true);
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -29,8 +26,12 @@ export const AddConsumption = (props: AddConsumptionProps) => {
   const virtualItems = virtualizer.getVirtualItems();
 
   const handlerSwitch = () => {
-    setButton((b) => !b);
+    setIsAdd((a) => !a);
   };
+
+  /*
+
+  THIS IS FILTERING LOGIC (TODO)
 
   const handleTest = () => {
     // props.productsList.sort((a, b) => b.fiber - a.fiber)
@@ -54,69 +55,61 @@ export const AddConsumption = (props: AddConsumptionProps) => {
     );
   };
 
+   */
+
   return (
-    <div className="main">
-      <div className="new-switch-search">
-        <div className="new-entry-x">
-          <span>New entry</span>
+    <div className={styles.main}>
+      <div className={styles["header-switch"]}>
+        <div className={styles.header}>
+          <span>
+            <strong>New entry</strong>
+          </span>
           <img
-            className="x"
+            className={styles.x}
             src={crossIcon}
-            alt="cross-cion"
+            alt="cross-icon"
             onClick={props.onClick}
           />
         </div>
-        <div
-          className={`add-create ${button ? "add-create-change" : ""}`}
-          onClick={handlerSwitch}
-        >
-          <div
-            className="add-create-switcher"
-            style={{
-              transform: `translateX(${button ? "0%" : "100%"})`,
-            }}
-          ></div>
 
-          <span
-            className={`add-text-switcher  ${
-              button ? "switch-on" : "switch-off"
-            }`}
+        <div className={styles.switch} onClick={handlerSwitch}>
+          <motion.div
+            className={styles.switcher}
+            animate={{ x: isAdd ? "0%" : "100%" }}
+            transition={{
+              duration: 0.3,
+              ease: "easeInOut",
+            }}
+          />
+
+          <motion.span
+            className={styles.add}
+            initial={{ color: "#ffffff" }}
+            animate={{ color: isAdd ? "#ffffff" : "#81b081" }}
+            transition={{ duration: 0.3 }}
           >
             Add
-          </span>
-          <span
-            className={`create-text-switcher ${
-              button ? "switch-off" : "switch-on"
-            }`}
+          </motion.span>
+
+          <motion.span
+            className={styles.create}
+            initial={{ color: "#81b081" }}
+            animate={{ color: !isAdd ? "#ffffff" : "#81b081" }}
+            transition={{ duration: 0.3 }}
           >
             Create
-          </span>
+          </motion.span>
         </div>
-
-        {/* {button ? (
-          <div className="meal-search">
-            <DropdownButton />
-            <div onClick={handleTest2}>TEST</div>
-            <Input
-              imageSrc={searchIcon}
-              placeholder="Search"
-              type="string"
-              label="g"
-            />
-          </div>
-        ) : (
-          <InputWithName name="Name" placeholder="Enter name" />
-        )} */}
       </div>
 
-      {button ? (
-        <div className="product-list-2" ref={scrollRef}>
+      {isAdd ? (
+        <div className={styles["product-list"]} ref={scrollRef}>
           <div
-            className="product-list-relative"
+            className={styles["product-list-relative"]}
             style={{ height: `${virtualizer.getTotalSize()}px` }}
           >
             <div
-              className="product-list-absolute"
+              className={styles["product-list-absolute"]}
               style={{
                 transform: `translateY(${virtualItems[0]?.start ?? 0}px)`,
               }}
@@ -126,7 +119,7 @@ export const AddConsumption = (props: AddConsumptionProps) => {
                   const product = props.productsList[vItem.index];
                   return (
                     <div
-                      className="product-list-additional"
+                      className={styles.product}
                       key={vItem.key}
                       data-index={vItem.index}
                       ref={virtualizer.measureElement}

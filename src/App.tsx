@@ -59,7 +59,7 @@ export const App = () => {
     : "No date available";
 
   return (
-    <div className="App">
+    <>
       {/* <NameBar /> */}
       <NavigationBar date={formattedDate} />
 
@@ -76,18 +76,15 @@ export const App = () => {
         )}
       </tgIdContext.Provider>
 
-      {data && (
-        <div className="test-cons-prod">
-          {data.statistic.arrayOfProducts &&
-            data.statistic.arrayOfProducts.map((product, index) => (
-              <ConsumedProduct
-                key={index}
-                {...product}
-                deletionStatus={() => handleRemoveFromConsumedList(index)}
-              />
-            ))}
-        </div>
-      )}
-    </div>
+      {data &&
+        data.statistic.arrayOfProducts &&
+        data.statistic.arrayOfProducts.map((product, index) => (
+          <ConsumedProduct
+            key={index}
+            {...product}
+            deletionStatus={() => handleRemoveFromConsumedList(index)}
+          />
+        ))}
+    </>
   );
 };
