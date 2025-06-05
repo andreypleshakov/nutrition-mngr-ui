@@ -84,6 +84,6 @@
 .consumed-product-stat {
   overflow: hidden;
   display: flex;
-  justify-content: space-between;
-  padding-inline: 54px;
+  justify-content: right;
+  padding-inline: 60px;
 }

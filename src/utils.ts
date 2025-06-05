@@ -8,13 +8,11 @@ export function calculateNutrient(
   valueInput: string,
   valueNutrient: number
 ): string {
-  let covertedNumber = "";
   const inputNumber = Number(valueInput);
   const valueCalculated = inputNumber * valueNutrient;
-  inputNumber === 0 || valueCalculated < 0.01
-    ? (covertedNumber = valueCalculated.toFixed())
-    : (covertedNumber = valueCalculated.toFixed(2));
-  return covertedNumber;
+  return inputNumber === 0 || valueCalculated < 0.01
+    ? valueCalculated.toFixed()
+    : valueCalculated.toFixed(2);
 }
 
 export function convertDateToTime(date: string): string {

@@ -20,7 +20,7 @@
 
 .general-statistic {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 100%;
   align-items: center;
 }
@@ -34,7 +34,7 @@
 }
 
 .kcal-numbers {
-  font-size: 40px;
+  font-size: 35px;
   font-weight: 600;
 }
 

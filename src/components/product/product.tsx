@@ -3,11 +3,11 @@ import { Products } from "../../api/getProducts";
 import "./product.css";
 import { Input } from "../input/input";
 import { Button } from "../button/button";
-import { ProductPic } from "../product-pic/product-pic";
-import { BasicNutrients, DailyFood } from "../../api/getStatAndGoal";
+import { BasicNutrients } from "../../api/getStatAndGoal";
 import { useTgIdContext } from "../../context/tg-context";
 import { motion, AnimatePresence } from "motion/react";
 import { NutrientCalculation } from "../nutrient-calculation/nutrient-calculation";
+import { calculateNutrient } from "../../utils";
 
 export const Product = (props: Products) => {
   const [valueInput, setValueInput] = useState("0");
@@ -26,51 +26,58 @@ export const Product = (props: Products) => {
     { id: 7, key: "Fiber", value: props.fiber },
   ];
 
-  // const handleSave = async () => {
-  //   const date = new Date();
+  const handleSave = async () => {
+    const date = new Date();
 
-  //   const convertedNutrients = nutrients?.reduce((acc, item) => {
-  //     acc[item.key as keyof BasicNutrients] = parseFloat(item.value);
-  //     return acc;
-  //   }, {} as BasicNutrients);
+    const convertedNutrients = nutrients.reduce((acc, item) => {
+      acc[item.key as keyof BasicNutrients] = item.value;
+      return acc;
+    }, {} as BasicNutrients);
 
-  //   if (convertedNutrients) {
-  //     const payload: DailyFood = {
-  //       name: props.name,
-  //       dateOfConsumption: date.toISOString(),
-  //       mass: Number(valueInput),
-  //       ...convertedNutrients,
-  //       tgId: tgId,
-  //     };
+    console.log("CONV", convertedNutrients);
 
-  //     console.log(payload);
+    const payload = {
+      name: props.name,
+      dateOfConsumption: date.toISOString(),
+      mass: Number(valueInput),
+      kcal: calculateNutrient(valueInput, props.kcal),
+      protein: calculateNutrient(valueInput, props.protein),
+      totalFat: calculateNutrient(valueInput, props.totalFat),
+      saturatedFat: calculateNutrient(valueInput, props.saturatedFat),
+      unsaturatedFat: calculateNutrient(valueInput, props.unsaturatedFat),
+      carbs: calculateNutrient(valueInput, props.carbs),
+      fiber: calculateNutrient(valueInput, props.fiber),
+      tgId: tgId,
+    };
 
-  //     try {
-  //       const response = await fetch(
-  //         `http://localhost:3001/statistic/${tgId}`,
-  //         {
-  //           method: "POST",
-  //           headers: { "Content-Type": "application/json" },
-  //           body: JSON.stringify(payload),
-  //         }
-  //       );
+    console.log("PAYL", payload);
 
-  //       if (!response.ok) {
-  //         const errorText = await response.text();
-  //         throw new Error(`Server Error: ${response.status} - ${errorText}`);
-  //       }
+    try {
+      const response = await fetch(`http://localhost:3001/statistic/${tgId}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-  //       const result = await response.json();
-  //       console.log(result);
-  //     } catch (error) {
-  //       if (error instanceof Error) {
-  //         console.error("Error message:", error.message);
-  //       } else {
-  //         console.error("An unexpected error occurred:", error);
-  //       }
-  //     }
-  //   }
-  // };
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Server Error: ${response.status} - ${errorText}`);
+      }
+
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error("Error message:", error.message);
+      } else {
+        console.error("An unexpected error occurred:", error);
+      }
+    }
+
+    if (isAnimate) return;
+    setIsVisible(!isVisible);
+    setValueInput("");
+  };
 
   const closeNutritionWindow = () => {
     if (isAnimate) return;
@@ -82,7 +89,6 @@ export const Product = (props: Products) => {
     <div className="product-wrapper">
       <div className="product" onClick={closeNutritionWindow}>
         <div className="pic-name">
-          <ProductPic sourcePic="db" />
           <span className="name">{props.name}</span>
         </div>
 
@@ -127,7 +133,7 @@ export const Product = (props: Products) => {
               </span>
 
               <Button
-                onClick={closeNutritionWindow}
+                onClick={handleSave}
                 disabled={!valueInput || valueInput === "0"}
               >
                 save

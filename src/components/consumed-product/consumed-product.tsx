@@ -3,7 +3,6 @@ import "./consumed-product.css";
 import arrowDown from "../../assets/icons/arrow-down.svg";
 import productOptions from "../../assets/icons/product-options-icon.svg";
 import { DailyFood } from "../../api/getStatAndGoal";
-import { ProductPic } from "../product-pic/product-pic";
 import { motion, AnimatePresence } from "motion/react";
 
 type ConsumedProductProps = DailyFood & {
@@ -70,7 +69,6 @@ export const ConsumedProduct = (props: ConsumedProductProps) => {
             onAnimationStart={() => setIsAnimate(true)}
             onAnimationComplete={() => setIsAnimate(false)}
           >
-            <ProductPic sourcePic="consumed" />
             <span className="nutritions">
               <span>{props.protein} g / Protein</span>
               <span>{props.carbs} g / Carbs</span>
